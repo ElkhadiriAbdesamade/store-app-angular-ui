@@ -38,7 +38,7 @@ export class ProduitDetailComponent {
 
   ngOnInit(): void {
     this.user_id = sessionStorage.getItem('id');
-    if (this.user_id==='') {
+    if (this.user_id==='' || this.user_id===null) {
       window.location.replace('/login')
     }
     this.route.params.subscribe((params: Params) => this.product_id = params['id']);
