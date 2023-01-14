@@ -1,0 +1,105 @@
+<!-- Related items section-->
+<section class="py-5 min-vh-100">
+    <div class="row text-center">
+        <div class="form-inline my-2 my-lg-0 d-flex flex-column align-items-center">
+            <input class="form-control mr-sm-2 w-50 py-3 m-2" type="search" [(ngModel)]="productName"
+                placeholder="Search By Product Name" aria-label="Search">
+            <button class="btn btn-outline-dark my-2 my-sm-2 w-25" (click)="search()">Search</button>
+        </div>
+        <div *ngIf="err_msg" class="alert alert-danger alert-dismissible fade show w-50 m-auto" role="alert">
+            <strong>Error!</strong> {{err_msg}}
+            <button type="button" class="btn-close" (click)="err_msg=''" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div class="container px-4 px-lg-5 mt-5">
+        <a class="fw-bolder mb-4 btn" href="/">Products List</a>
+        <div *ngIf="products.length === 0">
+            <div class="alert alert-warning alert-dismissible fade show w-100 m-auto" role="alert">
+                <strong>Not Found!</strong> No Product Found
+                <a href="/" class="btn-close" aria-label="Close"></a>
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div *ngFor="let item of products | paginate: { itemsPerPage: 10, currentPage: page }" class="col mb-5  hover-zoom">
+                <div class="card h-100 shadow-lg">
+                    <!-- Sale badge-->
+                    <div *ngIf="item.sale!==0" class="badge bg-dark text-white position-absolute"
+                        style="top: 0.5rem; right: 0.5rem;font-size: 20px;">
+                        {{'Sale '+item.sale_amount +'%'}}
+                    </div>
+                    <div *ngIf="item.qte_stock===0" class="badge bg-danger text-white position-absolute"
+                        style="top: 3.5rem; right: 0.5rem;font-size: 20px;">
+                        Sold Out
+                    </div>
+                    <!-- Product image-->
+                    <div class="bg-image hover-zoom">
+                        <img class="card-img-top p-2" [src]="item.image" alt="..." />
+                    </div>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h2 class="fw-bolder">{{item.name}}</h2>
+                            <!-- Product reviews-->
+                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                            </div>
+                            <!-- Product price-->
+                            <div *ngIf="item.sale!==0">
+                                <span class="text-muted text-decoration-line-through">{{item.price |currency}}</span>
+                                {{item.price-(item.price * item.sale_amount)/100 |currency}}
+                            </div>
+                            <div *ngIf="item.sale===0">
+                                {{item.price|currency}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center d-flex gap-4">
+
+                            <a *ngIf="item.qte_stock>0" [routerLink]="'product_details/'+item.id"
+                                class="btn btn-outline-dark mt-auto" href="#">View Details</a>
+
+                            <button *ngIf="item.qte_stock===0" disabled class="btn btn-outline-dark mt-auto"
+                                href="#">Sold Out</button>
+
+                            <div *ngIf="role==='admin'" class="example-button-container ">
+                                <a mat-mini-fab color="accent" class="mr-1 text-white" [href]="'edit_product/'+item.id"
+                                    aria-label="edit">
+                                    <mat-icon>edit</mat-icon>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+
+            <div *ngIf="!products" class="login100-form-title p-b-4 d-flex flex-column align-items-center">
+                <mat-spinner style="display: inline-block;height: 230px;width: 230px;"></mat-spinner>
+                <span>Loading Products Pleas Wait....</span>
+            </div>
+
+            <div *ngIf="role==='admin'" class="col mb-5  hover-zoom" style="cursor: pointer;" (click)="addProduct()">
+                <div class="card h-100 shadow-lg">
+                    <div class="card-body p-4">
+                        <div class="text-center d-flex h-100 justify-content-center align-items-center">
+                            <img src="./assets/add.png" width="70" alt="" srcset="">
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="has-text-centered d-flex align-items-center justify-content-center">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+    </div>
+</section>

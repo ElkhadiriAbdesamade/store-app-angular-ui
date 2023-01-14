@@ -1,0 +1,67 @@
+<div class="container shadow-lg w-100 min-vh-100 rounded bg-white mt-5 mb-5">
+    <div class="row ">
+        <form class="login100-form validate-form" [formGroup]="productForm" enctype="multipart/form-data"  style="padding-top: 32px;">
+            <h1 class="login100-form-title p-b-5">
+                Add Product Form
+            </h1>
+            <div *ngIf="err_msg" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> {{err_msg}}
+                <button type="button" class="btn-close" (click)="err_msg=''" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+
+            <div *ngIf="succ_msg" class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> {{succ_msg}}
+                <button type="button" class="btn-close" (click)="succ_msg=''" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+            <div class="col-md-12 mx-auto p-3 py-5 w-50 d-flex align-items-center flex-column">
+
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Product Name</mat-label>
+                    <input formControlName="name" matInput placeholder="Product Name" type="text">
+                    <mat-icon matSuffix>product</mat-icon>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Product Description</mat-label>
+                    <textarea formControlName="description" matInput placeholder="Product Description" type="text"></textarea>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Product Stock Quantity</mat-label>
+                    <input formControlName="qte_stock" matInput placeholder="Product Stock Quantity" type="number" >
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+                <div appearance="outline" class="w-full">
+                    <mat-checkbox class="example-margin" formControlName="sale" [(ngModel)]="checked">Product Sale</mat-checkbox>
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </div>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Product Sale Amount % </mat-label>
+                    <input formControlName="sale_amount"   matInput placeholder="Product Sale Amount %" type="number" min="1" max="90">
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Product Price</mat-label>
+                    <input formControlName="price" matInput placeholder="Product Price" type="number">
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+
+               <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Product Image Url</mat-label>
+                    <input formControlName="image" matInput placeholder="Product image" type="text">
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                </mat-form-field>
+
+                 <div class="login100-form-social flex-c-m  m-2 w-50">
+                    <button class="login100-form-btn w-100 bg-success" (click)="addProduct()">
+                        Add Product 
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

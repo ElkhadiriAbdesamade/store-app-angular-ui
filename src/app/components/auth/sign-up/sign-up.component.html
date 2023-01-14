@@ -1,0 +1,100 @@
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form" [formGroup]="userForm" style="padding-top: 32px;">
+                <h1 class="login100-form-title p-b-43">
+                    SingUp to continue
+                </h1>
+
+                <div *ngIf="err_msg" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> {{err_msg}}
+                    <button type="button" class="btn-close" (click)="err_msg=''" data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+                </div>
+                <div *ngIf="Loading" class="login100-form-title p-b-4 d-flex flex-column align-items-center">
+                    <mat-spinner style="display: inline-block;height: 230px;width: 230px;"></mat-spinner>
+                    <span>Loading Pleas Wait....</span>
+                </div>
+                <div *ngIf="!Loading">
+
+                    <div class="row mt-2">
+                        <mat-form-field appearance="outline" class="w-50">
+                            <mat-label>First Name</mat-label>
+                            <input formControlName="first_name" matInput placeholder="First Name">
+                            <mat-icon matSuffix>person</mat-icon>
+                            <!-- <mat-hint>Hint</mat-hint> -->
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w-50">
+                            <mat-label>Last Name</mat-label>
+                            <input formControlName="last_name" matInput placeholder="Last Name">
+                            <mat-icon matSuffix>person</mat-icon>
+                            <!-- <mat-hint>Hint</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Phone</mat-label>
+                        <input formControlName="phone" matInput placeholder="Phone" type="tel" maxlength="10">
+                        <mat-icon matSuffix>phone</mat-icon>
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Address</mat-label>
+                        <input formControlName="address" matInput placeholder="Address">
+                        <mat-icon matSuffix>location_on</mat-icon>
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>country</mat-label>
+                        <mat-select formControlName="country" [(ngModel)]="country" name="country">
+                            <mat-option *ngFor="let cty of countries.country" [value]="cty.name">
+                                {{cty.name}}
+                                <img src={{cty.image}} [width]="30" alt="flag">
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" [(ngModel)]="email" matInput placeholder="Email" type="email">
+                        <mat-icon matSuffix>login</mat-icon>
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-full">
+                        <mat-label>Password</mat-label>
+                        <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+
+
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" (click)="registerUser()">
+                            SingUp
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-46 p-b-20">
+                        <span class="txt2">
+                            you have an account
+                        </span>
+                    </div>
+
+                    <div class="login100-form-social flex-c-m">
+                        <a href="/login" class="login100-form-btn w-25">
+                            Login
+                        </a>
+                    </div>
+                </div>
+            </form>
+
+            <div class="login100-more" style="background-image: url('assets/auth_bg.jpg');">
+            </div>
+        </div>
+    </div>
+</div>
