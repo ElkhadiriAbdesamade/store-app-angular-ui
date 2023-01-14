@@ -17,7 +17,7 @@ export class AddProductComponent {
   err_msg!: String;
   succ_msg!: String;
 
-  product: Product = { id: 0, name: '', description: '', price: 0, sale: 0, sale_amount: 0, image: '', qte_stock: 0 };
+  product: Product = { id: 0, name: '', description: '', price: 0, sale: 1, sale_amount: 0, image: '', qte_stock: 0 };
   role!: string|null;
 
 
@@ -36,7 +36,7 @@ export class AddProductComponent {
       price: ['', Validators.required],
       sale: [0, Validators.required],
       qte_stock: ['', Validators.required],
-      sale_amount: [0, Validators.required],
+      sale_amount: [1, Validators.required],
       image: ["https://dummyimage.com/450x300/dee2e6/6c757d.jpg", Validators.nullValidator],
     });
 
@@ -63,6 +63,7 @@ export class AddProductComponent {
         this.api.add_product(this.productForm.value)
           .subscribe((response: any) => {
             this.succ_msg = "Product Added Successfully "
+            window.location.replace('/');
             resolve(response);
           });
 
